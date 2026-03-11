@@ -97,9 +97,7 @@
   .kpi:last-child { border-right: none; }
   .kpi:hover { background: #f7faff; }
   .kpi-icon {
-    width: 38px; height: 38px; border-radius: 10px;
-    display: flex; align-items: center; justify-content: center;
-    margin-bottom: 14px; font-size: 17px;
+    display: none;
   }
   .kpi-val {
     font-size: 38px; font-weight: 800; line-height: 1;
@@ -138,6 +136,8 @@
     box-shadow: 0 1px 3px rgba(8,34,74,.05), 0 6px 20px rgba(8,34,74,.05);
     margin-bottom: 24px;
     border: 1px solid var(--border);
+    overflow: hidden;
+    min-width: 0;
   }
   .grid-2 {
     display: grid; grid-template-columns: 1fr 1fr;
@@ -162,7 +162,8 @@
     margin-bottom: 10px; text-align: center; min-height: 28px;
     display: flex; align-items: center; justify-content: center;
   }
-  canvas { display: block; margin: 0 auto; }
+  canvas { display: block; }
+  #barChart, #barPruebas { width: 100% !important; }
 
   /* UNIT LISTS */
   .unit-list { margin-top: 14px; width: 100%; }
@@ -212,28 +213,28 @@
 
 <div class="kpi-strip">
   <div class="kpi">
-    <div class="kpi-icon" style="background:#eef4ff;"></div>
+    <div class="kpi-icon" style="background:#eef4ff; color:#1251a3; font-size:13px; font-weight:800;">4.3</div>
     <div class="kpi-val" style="color:#1251a3;">4.3</div>
     <div class="kpi-label">Formulario intuitivo</div>
     <div class="kpi-bar"><div class="kpi-bar-fill" style="width:86%;background:#1a73c8;"></div></div>
     <div class="kpi-sub">promedio sobre 5</div>
   </div>
   <div class="kpi">
-    <div class="kpi-icon" style="background:#eef4ff;"></div>
+    <div class="kpi-icon" style="background:#eef4ff; color:#1251a3; font-size:13px; font-weight:800;">4.2</div>
     <div class="kpi-val" style="color:#1251a3;">4.2</div>
     <div class="kpi-label">Información clara</div>
     <div class="kpi-bar"><div class="kpi-bar-fill" style="width:84%;background:#1a73c8;"></div></div>
     <div class="kpi-sub">promedio sobre 5</div>
   </div>
   <div class="kpi">
-    <div class="kpi-icon" style="background:#eef4ff;"></div>
+    <div class="kpi-icon" style="background:#eef4ff; color:#1251a3; font-size:13px; font-weight:800;">4.3</div>
     <div class="kpi-val" style="color:#1251a3;">4.3</div>
     <div class="kpi-label">Calificación general</div>
     <div class="kpi-bar"><div class="kpi-bar-fill" style="width:86%;background:#1a73c8;"></div></div>
     <div class="kpi-sub">promedio sobre 5</div>
   </div>
   <div class="kpi">
-    <div class="kpi-icon" style="background:#e8f5e9;"></div>
+    <div class="kpi-icon" style="background:#e8f5e9; color:#0d7a3e; font-size:13px; font-weight:800;">50%</div>
     <div class="kpi-val" style="color:#0d7a3e;">50%</div>
     <div class="kpi-label">Listo para implementar</div>
     <div class="kpi-bar"><div class="kpi-bar-fill" style="width:50%;background:#1db85a;"></div></div>
@@ -247,8 +248,8 @@
   <div class="card">
     <div class="section-eyebrow">Evaluación por unidad</div>
     <div class="section-title">Puntajes individuales (escala 1–5)</div>
-    <div style="position:relative;height:290px;width:100%;">
-      <canvas id="barChart"></canvas>
+    <div style="position:relative; height:340px; width:100%; display:block;">
+      <canvas id="barChart" style="width:100% !important;"></canvas>
     </div>
   </div>
 
@@ -367,13 +368,13 @@
   <div class="card">
     <div class="section-eyebrow">Cobertura de pruebas</div>
     <div class="section-title">Tipos de pruebas realizadas por validadores</div>
-    <div style="position:relative;height:160px;width:100%;">
-      <canvas id="barPruebas"></canvas>
+    <div style="position:relative; height:200px; width:100%; display:block;">
+      <canvas id="barPruebas" style="width:100% !important;"></canvas>
     </div>
   </div>
 
   <div class="footer">
-    Superintendencia de Regulación Sanitaria &nbsp;·&nbsp;- Marzo 2026 -
+    Ministerio de Salud · Dirección Nacional de Medicamentos · SRS &nbsp;·&nbsp; Marzo 2026
   </div>
 
 </main>
@@ -387,15 +388,15 @@ new Chart(document.getElementById('barChart'), {
   data: {
     labels: ['UISQTA','URDM','ULLPB','UEC','ULR','UIE'],
     datasets: [
-      { label: 'Formulario intuitivo', data: [4,4,5,4,4,5], backgroundColor: C1, borderRadius: 6 },
-      { label: 'Información clara',    data: [4,4,5,4,4,4], backgroundColor: C2, borderRadius: 6 },
-      { label: 'Calificación general', data: [4,4,5,5,4,4], backgroundColor: C3, borderRadius: 6 },
+      { label: 'Formulario intuitivo', data: [4,4,5,4,4,5], backgroundColor: C1, borderRadius: 4, barPercentage: 0.95, categoryPercentage: 0.9 },
+      { label: 'Información clara',    data: [4,4,5,4,4,4], backgroundColor: C2, borderRadius: 4, barPercentage: 0.95, categoryPercentage: 0.9 },
+      { label: 'Calificación general', data: [4,4,5,5,4,4], backgroundColor: C3, borderRadius: 4, barPercentage: 0.95, categoryPercentage: 0.9 },
     ]
   },
   options: {
     responsive: true, maintainAspectRatio: false,
     scales: {
-      y: { min:0, max:5, ticks:{ stepSize:1, font:{size:11} }, grid:{ color:'#e8eef6' }, border:{display:false} },
+      y: { min:3, max:5, ticks:{ stepSize:1, font:{size:11} }, grid:{ color:'#e8eef6' }, border:{display:false} },
       x: { grid:{display:false}, ticks:{ font:{size:12, weight:'600'} } }
     },
     plugins: {
@@ -422,13 +423,17 @@ pie('pie1', ['Sí','Parcial','No'],   [4,1,1], [C2, C3, CRED]);
 pie('pie2', ['Sí','No'],             [5,1],   [C2, CRED]);
 pie('pie3', ['Sí','No probó','No'], [4,1,1], [C2, CSLATE, CRED]);
 pie('pie4', ['Sí','No probó','No'], [3,2,1], [C2, CSLATE, CRED]);
-pie('pie5', ['Listo','Con ajustes'],[3,3],   [CGREEN, CAMBER]);
+// Force resize after load to fill containers
+window.addEventListener('load', () => {
+  Chart.instances.forEach(chart => chart.resize());
+});
+
 
 new Chart(document.getElementById('barPruebas'), {
   type: 'bar',
   data: {
     labels: ['Presencial','Virtual','Cancelación'],
-    datasets: [{ label: 'Validadores', data: [3,5,3], backgroundColor: [C1,C2,C3], borderRadius: 6 }]
+    datasets: [{ label: 'Validadores', data: [3,5,3], backgroundColor: [C1,C2,C3], borderRadius: 5, barPercentage: 1.0, categoryPercentage: 0.85 }]
   },
   options: {
     indexAxis: 'y', responsive: true, maintainAspectRatio: false,
