@@ -14,8 +14,6 @@
     --blue2: #1a73c8;
     --blue3: #4fa8e8;
     --blue4: #a8d4f5;
-    --slate: #7fb3d3;
-    --red:   #b92c3a;
     --bg:    #f0f5fb;
     --card:  #ffffff;
     --border:#dde8f5;
@@ -23,169 +21,64 @@
     --muted: #5a7a9e;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  body {
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    min-height: 100vh;
-    padding-bottom: 60px;
-  }
+  body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); color: var(--text); padding-bottom: 60px; }
 
   /* HEADER */
   header {
     background: linear-gradient(135deg, var(--navy) 0%, var(--navy2) 60%, var(--blue1) 100%);
-    padding: 44px 48px 36px;
-    position: relative;
-    overflow: hidden;
+    padding: 44px 48px 36px; position: relative; overflow: hidden;
   }
   header::before {
     content: ''; position: absolute; top: -80px; right: -80px;
     width: 320px; height: 320px; border-radius: 50%;
     background: radial-gradient(circle, rgba(74,168,232,.18) 0%, transparent 70%);
   }
-  header::after {
-    content: ''; position: absolute; bottom: -60px; left: 30%;
-    width: 240px; height: 240px; border-radius: 50%;
-    background: radial-gradient(circle, rgba(255,255,255,.05) 0%, transparent 70%);
-  }
   .header-inner { position: relative; z-index: 1; }
   .header-badge {
     display: inline-flex; align-items: center; gap: 7px;
-    background: rgba(255,255,255,.1);
-    border: 1px solid rgba(255,255,255,.2);
-    border-radius: 20px;
-    padding: 5px 14px;
+    background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.2);
+    border-radius: 20px; padding: 5px 14px;
     font-size: 11px; font-weight: 600; letter-spacing: 1.5px;
-    color: var(--blue4); text-transform: uppercase;
-    margin-bottom: 18px;
+    color: var(--blue4); text-transform: uppercase; margin-bottom: 18px;
   }
-  .header-badge span {
-    width: 6px; height: 6px; border-radius: 50%;
-    background: var(--blue3); display: inline-block;
-  }
-  h1 {
-    font-size: 34px; font-weight: 800;
-    color: #fff; line-height: 1.18; margin-bottom: 12px;
-  }
+  .header-badge span { width: 6px; height: 6px; border-radius: 50%; background: var(--blue3); display: inline-block; }
+  h1 { font-size: 34px; font-weight: 800; color: #fff; line-height: 1.18; margin-bottom: 12px; }
   h1 em { color: var(--blue3); font-style: normal; }
-  .header-meta {
-    display: flex; gap: 24px; flex-wrap: wrap;
-  }
-  .header-meta-item {
-    font-size: 13px; color: rgba(255,255,255,.5);
-    display: flex; align-items: center; gap: 7px;
-  }
-  .header-meta-item::before {
-    content: ''; width: 4px; height: 4px; border-radius: 50%;
-    background: var(--blue3); display: inline-block;
-  }
+  .header-meta { display: flex; gap: 24px; flex-wrap: wrap; }
+  .header-meta-item { font-size: 13px; color: rgba(255,255,255,.5); display: flex; align-items: center; gap: 7px; }
+  .header-meta-item::before { content: ''; width: 4px; height: 4px; border-radius: 50%; background: var(--blue3); display: inline-block; }
 
   /* KPI STRIP */
-  .kpi-strip {
-    background: #fff;
-    border-bottom: 1px solid var(--border);
-    padding: 0 48px;
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-  }
-  .kpi {
-    padding: 26px 22px 22px;
-    border-right: 1px solid var(--border);
-    transition: background .15s;
-    cursor: default;
-  }
+  .kpi-strip { background: #fff; border-bottom: 1px solid var(--border); padding: 0 48px; display: grid; grid-template-columns: repeat(4,1fr); }
+  .kpi { padding: 26px 22px 22px; border-right: 1px solid var(--border); transition: background .15s; }
   .kpi:last-child { border-right: none; }
   .kpi:hover { background: #f7faff; }
-  .kpi-icon {
-    display: none;
-  }
-  .kpi-val {
-    font-size: 38px; font-weight: 800; line-height: 1;
-    letter-spacing: -1px; margin-bottom: 5px;
-  }
-  .kpi-label {
-    font-size: 11px; font-weight: 700; color: var(--muted);
-    text-transform: uppercase; letter-spacing: .6px;
-    margin-bottom: 10px;
-  }
-  .kpi-bar {
-    height: 4px; border-radius: 2px;
-    background: var(--border); overflow: hidden;
-  }
+  .kpi-val { font-size: 38px; font-weight: 800; line-height: 1; letter-spacing: -1px; margin-bottom: 5px; }
+  .kpi-label { font-size: 11px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .6px; margin-bottom: 10px; }
+  .kpi-bar { height: 4px; border-radius: 2px; background: var(--border); overflow: hidden; }
   .kpi-bar-fill { height: 100%; border-radius: 2px; }
   .kpi-sub { font-size: 11px; color: #aab8cc; margin-top: 6px; }
 
   /* MAIN */
-  main {
-    max-width: 1060px; margin: 0 auto; padding: 36px 24px 0;
-  }
-  .section-eyebrow {
-    font-size: 11px; font-weight: 700; letter-spacing: 1.5px;
-    text-transform: uppercase; color: var(--blue2);
-    margin-bottom: 5px;
-  }
-  .section-title {
-    font-size: 17px; font-weight: 700; color: var(--navy);
-    margin-bottom: 20px; padding-bottom: 14px;
-    border-bottom: 1px solid var(--border);
-  }
-  .card {
-    background: var(--card);
-    border-radius: 16px;
-    padding: 28px;
-    box-shadow: 0 1px 3px rgba(8,34,74,.05), 0 6px 20px rgba(8,34,74,.05);
-    margin-bottom: 24px;
-    border: 1px solid var(--border);
-    overflow: hidden;
-    min-width: 0;
-  }
-  .grid-2 {
-    display: grid; grid-template-columns: 1fr 1fr;
-    gap: 20px; margin-bottom: 24px;
-  }
-  .grid-3 {
-    display: grid; grid-template-columns: repeat(3,1fr);
-    gap: 16px; margin-bottom: 24px;
-  }
+  main { max-width: 1060px; margin: 0 auto; padding: 36px 24px 0; }
+  .section-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--blue2); margin-bottom: 5px; }
+  .section-title { font-size: 17px; font-weight: 700; color: var(--navy); margin-bottom: 20px; padding-bottom: 14px; border-bottom: 1px solid var(--border); }
+  .card { background: var(--card); border-radius: 16px; padding: 28px; box-shadow: 0 1px 3px rgba(8,34,74,.05), 0 6px 20px rgba(8,34,74,.05); margin-bottom: 24px; border: 1px solid var(--border); }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 24px; }
+  .grid-3 { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; margin-bottom: 24px; }
 
   /* PIE CARDS */
-  .pie-card {
-    background: var(--card);
-    border-radius: 16px; padding: 20px 18px 18px;
-    box-shadow: 0 1px 3px rgba(8,34,74,.05), 0 6px 20px rgba(8,34,74,.05);
-    border: 1px solid var(--border);
-    display: flex; flex-direction: column; align-items: center;
-  }
-  .pie-title {
-    font-size: 11px; font-weight: 700; color: var(--muted);
-    text-transform: uppercase; letter-spacing: .7px;
-    margin-bottom: 10px; text-align: center; min-height: 28px;
-    display: flex; align-items: center; justify-content: center;
-  }
-  canvas { display: block; }
-  #barChart, #barPruebas { width: 100% !important; }
+  .pie-card { background: var(--card); border-radius: 16px; padding: 20px 18px 18px; box-shadow: 0 1px 3px rgba(8,34,74,.05), 0 6px 20px rgba(8,34,74,.05); border: 1px solid var(--border); display: flex; flex-direction: column; align-items: center; }
+  .pie-title { font-size: 11px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .7px; margin-bottom: 10px; text-align: center; }
+  .chart-wrap { position: relative; height: 180px; width: 100%; }
 
   /* UNIT LISTS */
   .unit-list { margin-top: 14px; width: 100%; }
   .unit-group { margin-bottom: 9px; }
-  .unit-group-label {
-    font-size: 10px; font-weight: 700; letter-spacing: .7px;
-    text-transform: uppercase; padding: 3px 10px;
-    border-radius: 20px; display: inline-block; margin-bottom: 4px;
-  }
-  .unit-item {
-    font-size: 12px; font-weight: 500; color: var(--text);
-    padding: 3px 10px; display: block;
-    border-left: 2px solid var(--border);
-    margin: 2px 0 2px 4px;
-  }
+  .unit-group-label { font-size: 10px; font-weight: 700; letter-spacing: .7px; text-transform: uppercase; padding: 3px 10px; border-radius: 20px; display: inline-block; margin-bottom: 4px; }
+  .unit-item { font-size: 12px; font-weight: 500; color: var(--text); padding: 3px 10px; display: block; border-left: 2px solid var(--border); margin: 2px 0 2px 4px; }
 
-  /* FOOTER */
-  .footer {
-    text-align: center; font-size: 11px; color: #aab8cc;
-    margin-top: 16px; padding-top: 20px;
-    border-top: 1px solid var(--border);
-  }
+  .footer { text-align: center; font-size: 11px; color: #aab8cc; margin-top: 16px; padding-top: 20px; border-top: 1px solid var(--border); }
 
   @media (max-width: 700px) {
     .grid-2, .grid-3 { grid-template-columns: 1fr; }
@@ -204,7 +97,7 @@
     <div class="header-badge"><span></span>Sistema de Citas Técnicas · SRS</div>
     <h1>Reporte de Validación<br><em>Marzo 2026</em></h1>
     <div class="header-meta">
-      <span class="header-meta-item">6 unidades</span>
+      <span class="header-meta-item">6 unidades </span>
       <span class="header-meta-item">Resultados consolidados</span>
       <span class="header-meta-item">9 – 11 de marzo de 2026</span>
     </div>
@@ -213,28 +106,24 @@
 
 <div class="kpi-strip">
   <div class="kpi">
-    <div class="kpi-icon" style="background:#eef4ff; color:#1251a3; font-size:13px; font-weight:800;">4.3</div>
     <div class="kpi-val" style="color:#1251a3;">4.3</div>
     <div class="kpi-label">Formulario intuitivo</div>
     <div class="kpi-bar"><div class="kpi-bar-fill" style="width:86%;background:#1a73c8;"></div></div>
     <div class="kpi-sub">promedio sobre 5</div>
   </div>
   <div class="kpi">
-    <div class="kpi-icon" style="background:#eef4ff; color:#1251a3; font-size:13px; font-weight:800;">4.2</div>
     <div class="kpi-val" style="color:#1251a3;">4.2</div>
     <div class="kpi-label">Información clara</div>
     <div class="kpi-bar"><div class="kpi-bar-fill" style="width:84%;background:#1a73c8;"></div></div>
     <div class="kpi-sub">promedio sobre 5</div>
   </div>
   <div class="kpi">
-    <div class="kpi-icon" style="background:#eef4ff; color:#1251a3; font-size:13px; font-weight:800;">4.3</div>
     <div class="kpi-val" style="color:#1251a3;">4.3</div>
     <div class="kpi-label">Calificación general</div>
     <div class="kpi-bar"><div class="kpi-bar-fill" style="width:86%;background:#1a73c8;"></div></div>
     <div class="kpi-sub">promedio sobre 5</div>
   </div>
   <div class="kpi">
-    <div class="kpi-icon" style="background:#e8f5e9; color:#0d7a3e; font-size:13px; font-weight:800;">50%</div>
     <div class="kpi-val" style="color:#0d7a3e;">50%</div>
     <div class="kpi-label">Listo para implementar</div>
     <div class="kpi-bar"><div class="kpi-bar-fill" style="width:50%;background:#1db85a;"></div></div>
@@ -244,21 +133,19 @@
 
 <main>
 
-  <!-- Puntajes -->
   <div class="card">
     <div class="section-eyebrow">Evaluación por unidad</div>
     <div class="section-title">Puntajes individuales (escala 1–5)</div>
-    <div style="position:relative; height:340px; width:100%; display:block;">
-      <canvas id="barChart" style="width:100% !important;"></canvas>
+    <div class="chart-wrap" style="height:320px;">
+      <canvas id="barChart"></canvas>
     </div>
   </div>
 
-  <!-- Pies fila 1 -->
   <div class="section-eyebrow" style="margin-bottom:12px;">Validación funcional</div>
   <div class="grid-3">
     <div class="pie-card">
       <div class="pie-title">Servicios correctos</div>
-      <canvas id="pie1" width="160" height="140"></canvas>
+      <div class="chart-wrap"><canvas id="pie1"></canvas></div>
       <div class="unit-list">
         <div class="unit-group">
           <span class="unit-group-label" style="background:#dbeafe;color:#1e40af;">Sí</span>
@@ -280,7 +167,7 @@
 
     <div class="pie-card">
       <div class="pie-title">Horarios correctos</div>
-      <canvas id="pie2" width="160" height="140"></canvas>
+      <div class="chart-wrap"><canvas id="pie2"></canvas></div>
       <div class="unit-list">
         <div class="unit-group">
           <span class="unit-group-label" style="background:#dbeafe;color:#1e40af;">Sí</span>
@@ -299,7 +186,7 @@
 
     <div class="pie-card">
       <div class="pie-title">Correos recibidos</div>
-      <canvas id="pie3" width="160" height="140"></canvas>
+      <div class="chart-wrap"><canvas id="pie3"></canvas></div>
       <div class="unit-list">
         <div class="unit-group">
           <span class="unit-group-label" style="background:#dbeafe;color:#1e40af;">Sí</span>
@@ -320,11 +207,10 @@
     </div>
   </div>
 
-  <!-- Pies fila 2 -->
   <div class="grid-2">
     <div class="pie-card">
       <div class="pie-title">Cancelación funciona</div>
-      <canvas id="pie4" width="200" height="150"></canvas>
+      <div class="chart-wrap"><canvas id="pie4"></canvas></div>
       <div class="unit-list">
         <div class="unit-group">
           <span class="unit-group-label" style="background:#dbeafe;color:#1e40af;">Sí</span>
@@ -346,7 +232,7 @@
 
     <div class="pie-card">
       <div class="pie-title">Listo para implementar</div>
-      <canvas id="pie5" width="200" height="150"></canvas>
+      <div class="chart-wrap"><canvas id="pie5"></canvas></div>
       <div class="unit-list">
         <div class="unit-group">
           <span class="unit-group-label" style="background:#dcfce7;color:#166534;">Listo</span>
@@ -364,19 +250,15 @@
     </div>
   </div>
 
-  <!-- Pruebas -->
   <div class="card">
     <div class="section-eyebrow">Cobertura de pruebas</div>
     <div class="section-title">Tipos de pruebas realizadas por validadores</div>
-    <div style="position:relative; height:200px; width:100%; display:block;">
-      <canvas id="barPruebas" style="width:100% !important;"></canvas>
+    <div class="chart-wrap" style="height:200px;">
+      <canvas id="barPruebas"></canvas>
     </div>
   </div>
 
-  <div class="footer">
-    Superintendencia de Regulación Sanitaria · SRS &nbsp;·&nbsp; Marzo 2026
-  </div>
-
+  <div class="footer">Superintendencia de Regulación Sanitaria · SRS &nbsp;·&nbsp; Marzo 2026</div>
 </main>
 
 <script>
@@ -399,9 +281,7 @@ new Chart(document.getElementById('barChart'), {
       y: { min:3, max:5, ticks:{ stepSize:1, font:{size:11} }, grid:{ color:'#e8eef6' }, border:{display:false} },
       x: { grid:{display:false}, ticks:{ font:{size:12, weight:'600'} } }
     },
-    plugins: {
-      legend: { position:'bottom', labels:{ font:{size:12}, padding:20, usePointStyle:true, pointStyleWidth:10 } }
-    }
+    plugins: { legend: { position:'bottom', labels:{ font:{size:12}, padding:20, usePointStyle:true, pointStyleWidth:10 } } }
   }
 });
 
@@ -410,7 +290,7 @@ function pie(id, labels, data, colors) {
     type: 'doughnut',
     data: { labels, datasets: [{ data, backgroundColor: colors, borderWidth: 3, borderColor:'#fff' }] },
     options: {
-      responsive: false, cutout: '55%',
+      responsive: true, maintainAspectRatio: false, cutout: '55%',
       plugins: {
         legend: { position:'bottom', labels:{ font:{size:11}, padding:10, boxWidth:10, usePointStyle:true } },
         tooltip: { callbacks: { label: ctx => `  ${ctx.label}: ${ctx.raw}` } }
@@ -419,15 +299,11 @@ function pie(id, labels, data, colors) {
   });
 }
 
-pie('pie1', ['Sí','Parcial','No'],   [4,1,1], [C2, C3, CRED]);
-pie('pie2', ['Sí','No'],             [5,1],   [C2, CRED]);
-pie('pie3', ['Sí','No probó','No'], [4,1,1], [C2, CSLATE, CRED]);
-pie('pie4', ['Sí','No probó','No'], [3,2,1], [C2, CSLATE, CRED]);
-// Force resize after load to fill containers
-window.addEventListener('load', () => {
-  Chart.instances.forEach(chart => chart.resize());
-});
-
+pie('pie1', ['Sí','Parcial','No'],    [4,1,1], [C2, C3, CRED]);
+pie('pie2', ['Sí','No'],              [5,1],   [C2, CRED]);
+pie('pie3', ['Sí','No probó','No'],   [4,1,1], [C2, CSLATE, CRED]);
+pie('pie4', ['Sí','No probó','No'],   [3,2,1], [C2, CSLATE, CRED]);
+pie('pie5', ['Listo','Con ajustes'],  [3,3],   [CGREEN, CAMBER]);
 
 new Chart(document.getElementById('barPruebas'), {
   type: 'bar',
