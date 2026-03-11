@@ -4,304 +4,439 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Validación SRS — Dashboard</title>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <style>
   :root {
-    --navy: #0a2550;
-    --navy2: #0d3572;
-    --green: #1a7abf;
-    --amber: #4aa8d8;
-    --red: #c0392b;
+    --navy:  #08224a;
+    --navy2: #0b2d63;
+    --blue1: #1251a3;
+    --blue2: #1a73c8;
+    --blue3: #4fa8e8;
+    --blue4: #a8d4f5;
     --slate: #7fb3d3;
-    --bg: #eaf2f8;
-    --card: #ffffff;
+    --red:   #b92c3a;
+    --bg:    #f0f5fb;
+    --card:  #ffffff;
+    --border:#dde8f5;
+    --text:  #0f2444;
+    --muted: #5a7a9e;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body {
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     background: var(--bg);
-    color: #1e293b;
+    color: var(--text);
     min-height: 100vh;
-    padding: 0 0 48px;
+    padding-bottom: 60px;
   }
+
+  /* HEADER */
   header {
-    background: var(--navy);
-    padding: 36px 40px 28px;
+    background: linear-gradient(135deg, var(--navy) 0%, var(--navy2) 60%, var(--blue1) 100%);
+    padding: 44px 48px 36px;
     position: relative;
     overflow: hidden;
   }
   header::before {
-    content: '';
-    position: absolute;
-    top: -60px; right: -60px;
-    width: 260px; height: 260px;
-    border-radius: 50%;
-    background: rgba(0,201,141,.08);
+    content: ''; position: absolute; top: -80px; right: -80px;
+    width: 320px; height: 320px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(74,168,232,.18) 0%, transparent 70%);
   }
   header::after {
-    content: '';
-    position: absolute;
-    bottom: -80px; left: 40%;
-    width: 200px; height: 200px;
-    border-radius: 50%;
-    background: rgba(245,166,35,.06);
+    content: ''; position: absolute; bottom: -60px; left: 30%;
+    width: 240px; height: 240px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,255,255,.05) 0%, transparent 70%);
   }
-  .header-label {
-    font-family: 'DM Sans', sans-serif;
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 3px;
-    color: var(--green);
-    text-transform: uppercase;
-    margin-bottom: 10px;
+  .header-inner { position: relative; z-index: 1; }
+  .header-badge {
+    display: inline-flex; align-items: center; gap: 7px;
+    background: rgba(255,255,255,.1);
+    border: 1px solid rgba(255,255,255,.2);
+    border-radius: 20px;
+    padding: 5px 14px;
+    font-size: 11px; font-weight: 600; letter-spacing: 1.5px;
+    color: var(--blue4); text-transform: uppercase;
+    margin-bottom: 18px;
+  }
+  .header-badge span {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--blue3); display: inline-block;
   }
   h1 {
-    font-family: 'Syne', sans-serif;
-    font-size: 32px;
-    font-weight: 800;
-    color: #fff;
-    line-height: 1.15;
-    margin-bottom: 8px;
+    font-size: 34px; font-weight: 800;
+    color: #fff; line-height: 1.18; margin-bottom: 12px;
   }
-  .subtitle {
-    font-size: 14px;
-    color: #94a3b8;
+  h1 em { color: var(--blue3); font-style: normal; }
+  .header-meta {
+    display: flex; gap: 24px; flex-wrap: wrap;
   }
-  .kpis {
-    display: flex;
-    gap: 12px;
-    padding: 24px 40px;
-    background: var(--navy2);
-    flex-wrap: wrap;
+  .header-meta-item {
+    font-size: 13px; color: rgba(255,255,255,.5);
+    display: flex; align-items: center; gap: 7px;
+  }
+  .header-meta-item::before {
+    content: ''; width: 4px; height: 4px; border-radius: 50%;
+    background: var(--blue3); display: inline-block;
+  }
+
+  /* KPI STRIP */
+  .kpi-strip {
+    background: #fff;
+    border-bottom: 1px solid var(--border);
+    padding: 0 48px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
   }
   .kpi {
-    flex: 1;
-    min-width: 130px;
-    padding: 16px 20px;
-    background: rgba(255,255,255,.06);
-    border-radius: 10px;
-    border-left: 3px solid var(--green);
+    padding: 26px 22px 22px;
+    border-right: 1px solid var(--border);
+    transition: background .15s;
+    cursor: default;
+  }
+  .kpi:last-child { border-right: none; }
+  .kpi:hover { background: #f7faff; }
+  .kpi-icon {
+    width: 38px; height: 38px; border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 14px; font-size: 17px;
   }
   .kpi-val {
-    font-family: 'Syne', sans-serif;
-    font-size: 34px;
-    font-weight: 800;
-    color: var(--green);
-    line-height: 1;
+    font-size: 38px; font-weight: 800; line-height: 1;
+    letter-spacing: -1px; margin-bottom: 5px;
   }
   .kpi-label {
-    font-size: 12px;
-    color: #94a3b8;
-    margin-top: 5px;
+    font-size: 11px; font-weight: 700; color: var(--muted);
+    text-transform: uppercase; letter-spacing: .6px;
+    margin-bottom: 10px;
   }
-  .kpi-sub {
-    font-size: 10px;
-    color: #475569;
-    margin-top: 2px;
+  .kpi-bar {
+    height: 4px; border-radius: 2px;
+    background: var(--border); overflow: hidden;
   }
+  .kpi-bar-fill { height: 100%; border-radius: 2px; }
+  .kpi-sub { font-size: 11px; color: #aab8cc; margin-top: 6px; }
+
+  /* MAIN */
   main {
-    max-width: 1000px;
-    margin: 0 auto;
-    padding: 32px 24px 0;
+    max-width: 1060px; margin: 0 auto; padding: 36px 24px 0;
+  }
+  .section-eyebrow {
+    font-size: 11px; font-weight: 700; letter-spacing: 1.5px;
+    text-transform: uppercase; color: var(--blue2);
+    margin-bottom: 5px;
   }
   .section-title {
-    font-family: 'Syne', sans-serif;
-    font-size: 16px;
-    font-weight: 700;
-    color: var(--navy);
-    margin-bottom: 16px;
-    padding-bottom: 8px;
-    border-bottom: 2px solid #e2e8f0;
+    font-size: 17px; font-weight: 700; color: var(--navy);
+    margin-bottom: 20px; padding-bottom: 14px;
+    border-bottom: 1px solid var(--border);
   }
   .card {
     background: var(--card);
-    border-radius: 14px;
-    padding: 24px;
-    box-shadow: 0 2px 12px rgba(15,35,68,.07);
+    border-radius: 16px;
+    padding: 28px;
+    box-shadow: 0 1px 3px rgba(8,34,74,.05), 0 6px 20px rgba(8,34,74,.05);
     margin-bottom: 24px;
+    border: 1px solid var(--border);
   }
   .grid-2 {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
-    margin-bottom: 24px;
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 20px; margin-bottom: 24px;
   }
   .grid-3 {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 16px;
-    margin-bottom: 24px;
+    display: grid; grid-template-columns: repeat(3,1fr);
+    gap: 16px; margin-bottom: 24px;
   }
+
+  /* PIE CARDS */
   .pie-card {
     background: var(--card);
-    border-radius: 14px;
-    padding: 18px 16px 14px;
-    box-shadow: 0 2px 12px rgba(15,35,68,.07);
-    text-align: center;
+    border-radius: 16px; padding: 20px 18px 18px;
+    box-shadow: 0 1px 3px rgba(8,34,74,.05), 0 6px 20px rgba(8,34,74,.05);
+    border: 1px solid var(--border);
+    display: flex; flex-direction: column; align-items: center;
   }
   .pie-title {
-    font-size: 12px;
-    font-weight: 600;
-    color: #374151;
-    margin-bottom: 4px;
-    min-height: 32px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    font-size: 11px; font-weight: 700; color: var(--muted);
+    text-transform: uppercase; letter-spacing: .7px;
+    margin-bottom: 10px; text-align: center; min-height: 28px;
+    display: flex; align-items: center; justify-content: center;
   }
-  canvas { display: block; }
-  @media (max-width: 640px) {
+  canvas { display: block; margin: 0 auto; }
+
+  /* UNIT LISTS */
+  .unit-list { margin-top: 14px; width: 100%; }
+  .unit-group { margin-bottom: 9px; }
+  .unit-group-label {
+    font-size: 10px; font-weight: 700; letter-spacing: .7px;
+    text-transform: uppercase; padding: 3px 10px;
+    border-radius: 20px; display: inline-block; margin-bottom: 4px;
+  }
+  .unit-item {
+    font-size: 12px; font-weight: 500; color: var(--text);
+    padding: 3px 10px; display: block;
+    border-left: 2px solid var(--border);
+    margin: 2px 0 2px 4px;
+  }
+
+  /* FOOTER */
+  .footer {
+    text-align: center; font-size: 11px; color: #aab8cc;
+    margin-top: 16px; padding-top: 20px;
+    border-top: 1px solid var(--border);
+  }
+
+  @media (max-width: 700px) {
     .grid-2, .grid-3 { grid-template-columns: 1fr; }
-    h1 { font-size: 22px; }
-    .kpis { padding: 16px 20px; }
-    main { padding: 20px 16px 0; }
-    header { padding: 24px 20px 20px; }
+    .kpi-strip { grid-template-columns: 1fr 1fr; padding: 0 16px; }
+    .kpi { border-right: none; border-bottom: 1px solid var(--border); }
+    h1 { font-size: 24px; }
+    header { padding: 28px 24px 24px; }
+    main { padding: 24px 16px 0; }
   }
 </style>
 </head>
 <body>
 
 <header>
-  <div class="header-label">CITAS TÉCNICAS</div>
-  <h1>Reporte de validación<br>SRS — Marzo 2026</h1>
-  <p class="subtitle">6 validaciones · Resultados consolidados</p>
+  <div class="header-inner">
+    <div class="header-badge"><span></span>Sistema de Citas Técnicas · SRS</div>
+    <h1>Reporte de Validación<br><em>Marzo 2026</em></h1>
+    <div class="header-meta">
+      <span class="header-meta-item">6 unidades validadoras</span>
+      <span class="header-meta-item">Resultados consolidados</span>
+      <span class="header-meta-item">9 – 10 de marzo de 2026</span>
+    </div>
+  </div>
 </header>
 
-<div class="kpis">
+<div class="kpi-strip">
   <div class="kpi">
-    <div class="kpi-val">4.3</div>
+    <div class="kpi-icon" style="background:#eef4ff;"></div>
+    <div class="kpi-val" style="color:#1251a3;">4.3</div>
     <div class="kpi-label">Formulario intuitivo</div>
-    <div class="kpi-sub">promedio / 5</div>
+    <div class="kpi-bar"><div class="kpi-bar-fill" style="width:86%;background:#1a73c8;"></div></div>
+    <div class="kpi-sub">promedio sobre 5</div>
   </div>
   <div class="kpi">
-    <div class="kpi-val">4.2</div>
+    <div class="kpi-icon" style="background:#eef4ff;"></div>
+    <div class="kpi-val" style="color:#1251a3;">4.2</div>
     <div class="kpi-label">Información clara</div>
-    <div class="kpi-sub">promedio / 5</div>
+    <div class="kpi-bar"><div class="kpi-bar-fill" style="width:84%;background:#1a73c8;"></div></div>
+    <div class="kpi-sub">promedio sobre 5</div>
   </div>
   <div class="kpi">
-    <div class="kpi-val">4.3</div>
+    <div class="kpi-icon" style="background:#eef4ff;"></div>
+    <div class="kpi-val" style="color:#1251a3;">4.3</div>
     <div class="kpi-label">Calificación general</div>
-    <div class="kpi-sub">promedio / 5</div>
+    <div class="kpi-bar"><div class="kpi-bar-fill" style="width:86%;background:#1a73c8;"></div></div>
+    <div class="kpi-sub">promedio sobre 5</div>
   </div>
-  <div class="kpi" style="border-left-color:#4aa8d8">
-    <div class="kpi-val" style="color:#4aa8d8">50%</div>
+  <div class="kpi">
+    <div class="kpi-icon" style="background:#e8f5e9;"></div>
+    <div class="kpi-val" style="color:#0d7a3e;">50%</div>
     <div class="kpi-label">Listo para implementar</div>
+    <div class="kpi-bar"><div class="kpi-bar-fill" style="width:50%;background:#1db85a;"></div></div>
     <div class="kpi-sub">3 de 6 sin ajustes</div>
   </div>
 </div>
 
 <main>
 
-  <!-- Puntajes por validador -->
+  <!-- Puntajes -->
   <div class="card">
-    <div class="section-title">Puntajes individuales por validador (escala 1–5)</div>
-    <canvas id="barChart" height="100"></canvas>
+    <div class="section-eyebrow">Evaluación por unidad</div>
+    <div class="section-title">Puntajes individuales (escala 1–5)</div>
+    <div style="position:relative;height:290px;width:100%;">
+      <canvas id="barChart"></canvas>
+    </div>
   </div>
 
-  <!-- Pies row 1 -->
+  <!-- Pies fila 1 -->
+  <div class="section-eyebrow" style="margin-bottom:12px;">Validación funcional</div>
   <div class="grid-3">
     <div class="pie-card">
       <div class="pie-title">Servicios correctos</div>
-      <canvas id="pie1" width="160" height="160"></canvas>
+      <canvas id="pie1" width="160" height="140"></canvas>
+      <div class="unit-list">
+        <div class="unit-group">
+          <span class="unit-group-label" style="background:#dbeafe;color:#1e40af;">Sí</span>
+          <span class="unit-item">UISQTA</span>
+          <span class="unit-item">ULLPB</span>
+          <span class="unit-item">UEC</span>
+          <span class="unit-item">UIE</span>
+        </div>
+        <div class="unit-group">
+          <span class="unit-group-label" style="background:#e0f2fe;color:#0369a1;">Parcial</span>
+          <span class="unit-item">URDM</span>
+        </div>
+        <div class="unit-group">
+          <span class="unit-group-label" style="background:#fee2e2;color:#991b1b;">No</span>
+          <span class="unit-item">ULR</span>
+        </div>
+      </div>
     </div>
+
     <div class="pie-card">
       <div class="pie-title">Horarios correctos</div>
-      <canvas id="pie2" width="160" height="160"></canvas>
+      <canvas id="pie2" width="160" height="140"></canvas>
+      <div class="unit-list">
+        <div class="unit-group">
+          <span class="unit-group-label" style="background:#dbeafe;color:#1e40af;">Sí</span>
+          <span class="unit-item">URDM</span>
+          <span class="unit-item">ULLPB</span>
+          <span class="unit-item">UEC</span>
+          <span class="unit-item">ULR</span>
+          <span class="unit-item">UIE</span>
+        </div>
+        <div class="unit-group">
+          <span class="unit-group-label" style="background:#fee2e2;color:#991b1b;">No</span>
+          <span class="unit-item">UISQTA</span>
+        </div>
+      </div>
     </div>
+
     <div class="pie-card">
       <div class="pie-title">Correos recibidos</div>
-      <canvas id="pie3" width="160" height="160"></canvas>
+      <canvas id="pie3" width="160" height="140"></canvas>
+      <div class="unit-list">
+        <div class="unit-group">
+          <span class="unit-group-label" style="background:#dbeafe;color:#1e40af;">Sí</span>
+          <span class="unit-item">URDM</span>
+          <span class="unit-item">ULLPB</span>
+          <span class="unit-item">UEC</span>
+          <span class="unit-item">UIE</span>
+        </div>
+        <div class="unit-group">
+          <span class="unit-group-label" style="background:#f1f5f9;color:#475569;">No probó</span>
+          <span class="unit-item">UISQTA</span>
+        </div>
+        <div class="unit-group">
+          <span class="unit-group-label" style="background:#fee2e2;color:#991b1b;">No</span>
+          <span class="unit-item">ULR</span>
+        </div>
+      </div>
     </div>
   </div>
 
-  <!-- Pies row 2 -->
+  <!-- Pies fila 2 -->
   <div class="grid-2">
     <div class="pie-card">
       <div class="pie-title">Cancelación funciona</div>
-      <canvas id="pie4" width="200" height="180"></canvas>
+      <canvas id="pie4" width="200" height="150"></canvas>
+      <div class="unit-list">
+        <div class="unit-group">
+          <span class="unit-group-label" style="background:#dbeafe;color:#1e40af;">Sí</span>
+          <span class="unit-item">URDM</span>
+          <span class="unit-item">UEC</span>
+          <span class="unit-item">UIE</span>
+        </div>
+        <div class="unit-group">
+          <span class="unit-group-label" style="background:#f1f5f9;color:#475569;">No probó</span>
+          <span class="unit-item">UISQTA</span>
+          <span class="unit-item">ULLPB</span>
+        </div>
+        <div class="unit-group">
+          <span class="unit-group-label" style="background:#fee2e2;color:#991b1b;">No</span>
+          <span class="unit-item">ULR</span>
+        </div>
+      </div>
     </div>
+
     <div class="pie-card">
-      <div class="pie-title">¿Listo para implementar?</div>
-      <canvas id="pie5" width="200" height="180"></canvas>
+      <div class="pie-title">Listo para implementar</div>
+      <canvas id="pie5" width="200" height="150"></canvas>
+      <div class="unit-list">
+        <div class="unit-group">
+          <span class="unit-group-label" style="background:#dcfce7;color:#166534;">Listo</span>
+          <span class="unit-item">ULLPB</span>
+          <span class="unit-item">UEC</span>
+          <span class="unit-item">UIE</span>
+        </div>
+        <div class="unit-group">
+          <span class="unit-group-label" style="background:#fef9c3;color:#854d0e;">Con ajustes</span>
+          <span class="unit-item">UISQTA</span>
+          <span class="unit-item">URDM</span>
+          <span class="unit-item">ULR</span>
+        </div>
+      </div>
     </div>
   </div>
 
-  <!-- Pruebas realizadas -->
+  <!-- Pruebas -->
   <div class="card">
-    <div class="section-title">Tipo de pruebas realizadas</div>
-    <canvas id="barPruebas" height="80"></canvas>
+    <div class="section-eyebrow">Cobertura de pruebas</div>
+    <div class="section-title">Tipos de pruebas realizadas por validadores</div>
+    <div style="position:relative;height:160px;width:100%;">
+      <canvas id="barPruebas"></canvas>
+    </div>
   </div>
 
-  <p style="text-align:center;font-size:11px;color:#94a3b8;margin-top:8px;">
-    Generado con datos de validación SRS · Marzo 2026
-  </p>
+  <div class="footer">
+    Superintendencia de Regulación Sanitaria &nbsp;·&nbsp;- Marzo 2026 -
+  </div>
 
 </main>
 
 <script>
-const GREEN = '#1a7abf', AMBER = '#4aa8d8', RED = '#c0392b', SLATE = '#7fb3d3', NAVY = '#0d3572', BLUE = '#0d3572', PURPLE = '#1a5fa0';
+const C1 = '#0d3572', C2 = '#1a73c8', C3 = '#4fa8e8';
+const CGREEN = '#1a9e5c', CAMBER = '#d97706', CRED = '#b92c3a', CSLATE = '#93b8d4';
 
-// Bar chart — puntajes
 new Chart(document.getElementById('barChart'), {
   type: 'bar',
   data: {
     labels: ['UISQTA','URDM','ULLPB','UEC','ULR','UIE'],
     datasets: [
-      { label: 'Formulario intuitivo', data: [4,4,5,4,4,5], backgroundColor: BLUE, borderRadius: 5 },
-      { label: 'Información clara',    data: [4,4,5,4,4,4], backgroundColor: PURPLE, borderRadius: 5 },
-      { label: 'Calificación general', data: [4,4,5,5,4,4], backgroundColor: GREEN, borderRadius: 5 },
+      { label: 'Formulario intuitivo', data: [4,4,5,4,4,5], backgroundColor: C1, borderRadius: 6 },
+      { label: 'Información clara',    data: [4,4,5,4,4,4], backgroundColor: C2, borderRadius: 6 },
+      { label: 'Calificación general', data: [4,4,5,5,4,4], backgroundColor: C3, borderRadius: 6 },
     ]
   },
   options: {
-    responsive: true,
-    scales: { y: { min:0, max:5, ticks:{ stepSize:1 }, grid:{ color:'#e2e8f0' } }, x:{ grid:{display:false} } },
-    plugins: { legend: { position:'bottom', labels:{ font:{size:12}, padding:16 } } }
+    responsive: true, maintainAspectRatio: false,
+    scales: {
+      y: { min:0, max:5, ticks:{ stepSize:1, font:{size:11} }, grid:{ color:'#e8eef6' }, border:{display:false} },
+      x: { grid:{display:false}, ticks:{ font:{size:12, weight:'600'} } }
+    },
+    plugins: {
+      legend: { position:'bottom', labels:{ font:{size:12}, padding:20, usePointStyle:true, pointStyleWidth:10 } }
+    }
   }
 });
 
-// Pie helper
 function pie(id, labels, data, colors) {
   new Chart(document.getElementById(id), {
     type: 'doughnut',
-    data: { labels, datasets: [{ data, backgroundColor: colors, borderWidth: 2, borderColor:'#fff' }] },
+    data: { labels, datasets: [{ data, backgroundColor: colors, borderWidth: 3, borderColor:'#fff' }] },
     options: {
-      responsive: false,
-      cutout: '50%',
+      responsive: false, cutout: '55%',
       plugins: {
-        legend: { position:'bottom', labels:{ font:{size:11}, padding:8, boxWidth:10 } },
-        tooltip: { callbacks: { label: ctx => ` ${ctx.label}: ${ctx.raw}` } }
+        legend: { position:'bottom', labels:{ font:{size:11}, padding:10, boxWidth:10, usePointStyle:true } },
+        tooltip: { callbacks: { label: ctx => `  ${ctx.label}: ${ctx.raw}` } }
       }
     }
   });
 }
 
-pie('pie1', ['Sí (4)','Parcial (1)','No (1)'], [4,1,1], [GREEN, AMBER, RED]);
-pie('pie2', ['Sí (5)','No (1)'], [5,1], [GREEN, RED]);
-pie('pie3', ['Sí (4)','No probó (1)','No (1)'], [4,1,1], [GREEN, SLATE, RED]);
-pie('pie4', ['Sí (3)','No probó (2)','No (1)'], [3,2,1], [GREEN, SLATE, RED]);
-pie('pie5', ['Listo (3)','Con ajustes (3)'], [3,3], [GREEN, AMBER]);
+pie('pie1', ['Sí','Parcial','No'],   [4,1,1], [C2, C3, CRED]);
+pie('pie2', ['Sí','No'],             [5,1],   [C2, CRED]);
+pie('pie3', ['Sí','No probó','No'], [4,1,1], [C2, CSLATE, CRED]);
+pie('pie4', ['Sí','No probó','No'], [3,2,1], [C2, CSLATE, CRED]);
+pie('pie5', ['Listo','Con ajustes'],[3,3],   [CGREEN, CAMBER]);
 
-// Pruebas bar
 new Chart(document.getElementById('barPruebas'), {
   type: 'bar',
   data: {
     labels: ['Presencial','Virtual','Cancelación'],
-    datasets: [{
-      label: 'Validadores que probaron',
-      data: [3, 5, 3],
-      backgroundColor: [BLUE, PURPLE, AMBER],
-      borderRadius: 6,
-    }]
+    datasets: [{ label: 'Validadores', data: [3,5,3], backgroundColor: [C1,C2,C3], borderRadius: 6 }]
   },
   options: {
-    indexAxis: 'y',
-    responsive: true,
+    indexAxis: 'y', responsive: true, maintainAspectRatio: false,
     scales: {
-      x: { min:0, max:6, ticks:{ stepSize:1 }, grid:{ color:'#e2e8f0' } },
-      y: { grid:{ display:false } }
+      x: { min:0, max:6, ticks:{ stepSize:1, font:{size:11} }, grid:{ color:'#e8eef6' }, border:{display:false} },
+      y: { grid:{display:false}, ticks:{ font:{size:13, weight:'600'} } }
     },
-    plugins: { legend: { display: false } }
+    plugins: { legend:{ display:false } }
   }
 });
 </script>
