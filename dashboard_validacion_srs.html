@@ -8,13 +8,13 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <style>
   :root {
-    --navy: #0f2344;
-    --navy2: #1a3a6e;
-    --green: #00c98d;
-    --amber: #f5a623;
-    --red: #e8445a;
-    --slate: #94a3b8;
-    --bg: #f0f4f8;
+    --navy: #0a2550;
+    --navy2: #0d3572;
+    --green: #1a7abf;
+    --amber: #4aa8d8;
+    --red: #c0392b;
+    --slate: #7fb3d3;
+    --bg: #eaf2f8;
     --card: #ffffff;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -163,9 +163,9 @@
 <body>
 
 <header>
-  <div class="header-label">Sistema de Agendamiento de Citas</div>
-  <h1>Dashboard de Validación<br>SRS — Marzo 2026</h1>
-  <p class="subtitle">6 validadores · Unidades técnicas · Resultados consolidados</p>
+  <div class="header-label">CITAS TÉCNICAS</div>
+  <h1>Reporte de validación<br>SRS — Marzo 2026</h1>
+  <p class="subtitle">6 validaciones · Resultados consolidados</p>
 </header>
 
 <div class="kpis">
@@ -184,8 +184,8 @@
     <div class="kpi-label">Calificación general</div>
     <div class="kpi-sub">promedio / 5</div>
   </div>
-  <div class="kpi" style="border-left-color:var(--amber)">
-    <div class="kpi-val" style="color:var(--amber)">50%</div>
+  <div class="kpi" style="border-left-color:#4aa8d8">
+    <div class="kpi-val" style="color:#4aa8d8">50%</div>
     <div class="kpi-label">Listo para implementar</div>
     <div class="kpi-sub">3 de 6 sin ajustes</div>
   </div>
@@ -240,13 +240,13 @@
 </main>
 
 <script>
-const GREEN = '#00c98d', AMBER = '#f5a623', RED = '#e8445a', SLATE = '#94a3b8', NAVY = '#1a3a6e', BLUE = '#3b82f6', PURPLE = '#8b5cf6';
+const GREEN = '#1a7abf', AMBER = '#4aa8d8', RED = '#c0392b', SLATE = '#7fb3d3', NAVY = '#0d3572', BLUE = '#0d3572', PURPLE = '#1a5fa0';
 
 // Bar chart — puntajes
 new Chart(document.getElementById('barChart'), {
   type: 'bar',
   data: {
-    labels: ['R. Cuéllar','M. Córdova','K. López','J. Oliva','N. Mata','M. Mezquita'],
+    labels: ['UISQTA','URDM','ULLPB','UEC','ULR','UIE'],
     datasets: [
       { label: 'Formulario intuitivo', data: [4,4,5,4,4,5], backgroundColor: BLUE, borderRadius: 5 },
       { label: 'Información clara',    data: [4,4,5,4,4,4], backgroundColor: PURPLE, borderRadius: 5 },
